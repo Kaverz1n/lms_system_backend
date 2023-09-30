@@ -34,7 +34,6 @@ class CourseSerializer(serializers.ModelSerializer):
         return Lesson.objects.filter(course=instance).count()
 
     def create(self, validated_data):
-        print(validated_data)
         lessons = validated_data.pop('lessons')
         course = Course.objects.create(**validated_data)
 
