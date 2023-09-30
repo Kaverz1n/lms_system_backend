@@ -1,9 +1,11 @@
 from django.urls import path
 
 from users.apps import UsersConfig
-from users.views import UserUpdateAPIView
+from users.views import UserUpdateAPIView, UserPaymentListAPIView
+
 app_name = UsersConfig.name
 
 urlpatterns = [
-    path('update/<int:pk>/', UserUpdateAPIView.as_view(), name='user-update')
+    path('update/<int:pk>/', UserUpdateAPIView.as_view(), name='user_update'),
+    path('payments/', UserPaymentListAPIView.as_view(), name='user_payments_list'),
 ]

@@ -33,6 +33,7 @@ class Lesson(models.Model):
     '''
     Модель обучаюещего урока сервиса
     '''
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='Курс', related_name='lessons', **NULLABLE)
     title = models.CharField(max_length=150, verbose_name='Название')
     description = models.TextField(verbose_name='Описание')
     image = models.ImageField(upload_to='lessons/', default='lessons/default.jpg', verbose_name='Превью', **NULLABLE)
