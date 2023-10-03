@@ -18,7 +18,7 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 
 class UserProfileRetrieveAPIView(generics.RetrieveAPIView):
     '''
-    Generic-класс для обновления пользователя
+    Generic-класс для просмотра профиля пользователя
     '''
     serializer_class = UserProfileSerializer
     queryset = User.objects.all()
