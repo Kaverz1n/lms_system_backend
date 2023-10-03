@@ -12,7 +12,9 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = (
+            'pk',
             'email',
+            'password',
             'phone',
             'first_name',
             'last_name',
@@ -21,9 +23,9 @@ class UpdateUserSerializer(serializers.ModelSerializer):
         )
 
 
-class UserPaymentSerializer(serializers.ModelSerializer):
+class UserProfileSerializer(serializers.ModelSerializer):
     '''
-    Сериализатор для модели пользователя сервиса с историей платежей
+    Сериализатор для профиля пользователя сервиса
     '''
     payment_history = PaymentSerializer(many=True, source='payment_user')
 
@@ -35,7 +37,25 @@ class UserPaymentSerializer(serializers.ModelSerializer):
             'phone',
             'first_name',
             'last_name',
+            'password',
             'city',
             'image',
             'payment_history'
+        )
+
+
+class UserProfileNoDataSerializer(serializers.ModelSerializer):
+    '''
+    Сериализатор для модели пользователя со скртыми данными
+    '''
+
+    class Meta:
+        model = User
+        fields = (
+            'pk',
+            'email',
+            'phone',
+            'first_name',
+            'city',
+            'image',
         )
