@@ -1,7 +1,9 @@
 from django.db import models
 
-from school.models import Course, Lesson, NULLABLE
+from school.models import Course, Lesson
 from users.models import User
+
+NULLABLE = {'null': True, 'blank': True}
 
 
 class Payment(models.Model):
