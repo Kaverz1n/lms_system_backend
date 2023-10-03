@@ -2,8 +2,9 @@ from PIL import Image
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from school.models import NULLABLE
 from school.services import resize_image
+
+NULLABLE = {'null': True, 'blank': True}
 
 
 class User(AbstractUser):

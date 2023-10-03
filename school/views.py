@@ -1,5 +1,8 @@
 from rest_framework import viewsets, generics
+from rest_framework.permissions import IsAuthenticated
+
 from school.models import Course, Lesson
+from school.permissions import IsModeratorOrOwner
 from school.serializers import CourseSerializer, LessonSerializer
 
 
@@ -9,6 +12,7 @@ class CourseViewSet(viewsets.ModelViewSet):
     '''
     serializer_class = CourseSerializer
     queryset = Course.objects.all()
+    permission_classes = [IsAuthenticated, IsModeratorOrOwner]
 
 
 class LessonCreateAPIView(generics.CreateAPIView):
@@ -16,6 +20,7 @@ class LessonCreateAPIView(generics.CreateAPIView):
     Generic-класс для создания объекта Lesson
     '''
     serializer_class = LessonSerializer
+    permission_classes = [IsAuthenticated, IsModeratorOrOwner]
 
 
 class LessonUpdateAPIView(generics.UpdateAPIView):
@@ -24,6 +29,7 @@ class LessonUpdateAPIView(generics.UpdateAPIView):
     '''
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    permission_classes = [IsAuthenticated, IsModeratorOrOwner]
 
 
 class LessonListAPIView(generics.ListAPIView):
@@ -40,6 +46,7 @@ class LessonRetrieveAPIView(generics.RetrieveAPIView):
     '''
     serializer_class = LessonSerializer
     queryset = Lesson.objects.all()
+    permission_classes = [IsAuthenticated, IsModeratorOrOwner]
 
 
 class LessonDestroyAPIView(generics.DestroyAPIView):
@@ -47,3 +54,4 @@ class LessonDestroyAPIView(generics.DestroyAPIView):
     Generic-класс для удаления одного объекта Lesson
     '''
     queryset = Lesson.objects.all()
+    permission_classes = [IsAuthenticated, IsModeratorOrOwner]
