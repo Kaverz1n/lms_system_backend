@@ -2,7 +2,7 @@ from rest_framework import viewsets, generics
 from rest_framework.permissions import IsAuthenticated
 
 from school.models import Course, Lesson, Subscription
-from school.paginator import CoursePaginator, LessonPaginator
+from school.paginators import CoursePaginator, LessonPaginator
 from school.permissions import IsModeratorOrOwner
 from school.serializers import CourseSerializer, LessonSerializer, SubscriptionSerializer, UserCourseSerializer
 
