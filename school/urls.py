@@ -5,7 +5,7 @@ from rest_framework import routers
 from school.apps import SchoolConfig
 from school.views import (
     CourseViewSet, LessonListAPIView, LessonRetrieveAPIView, LessonCreateAPIView, LessonUpdateAPIView,
-    LessonDestroyAPIView
+    LessonDestroyAPIView, SubscriptionCreateAPIView, SubscriptionDestroyAPIView
 )
 
 app_name = SchoolConfig.name
@@ -19,4 +19,6 @@ urlpatterns = [
     path('lessons/create/', LessonCreateAPIView.as_view(), name='lesson_create'),
     path('lessons/update/<int:pk>/', LessonUpdateAPIView.as_view(), name='lesson_update'),
     path('lessons/destroy/<int:pk>/', LessonDestroyAPIView.as_view(), name='lesson_destroy'),
+    path('courses/<int:course_pk>/subscribe/', SubscriptionCreateAPIView.as_view(), name='subscription_create'),
+    path('courses/<int:course_pk>/unsubscribe/', SubscriptionDestroyAPIView.as_view(), name='subscription_destroy'),
 ] + router.urls
