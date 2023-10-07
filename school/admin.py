@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from school.models import Course, Lesson
+from school.models import Course, Lesson, Subscription
 
 
 @admin.register(Course)
@@ -15,3 +15,9 @@ class LessonAdmin(admin.ModelAdmin):
     list_display = ('pk', 'title', 'description',)
     search_fields = ('title', 'description',)
     ordering = ('pk',)
+
+
+@admin.register(Subscription)
+class SubscriptionAdmin(admin.ModelAdmin):
+    list_display = ('pk', 'user', 'course',)
+    list_filter = ('course',)

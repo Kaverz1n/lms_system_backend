@@ -8,17 +8,27 @@ class IsModeratorOrOwner(BasePermission):
     '''
 
     def has_permission(self, request, view):
-        group = request.user.groups.filter(name='moderator').exists()
+        moderator = request.user.groups.filter(name='moderator').exists()
+        teacher = request.user.groups.filter(name='teacher').exists()
+        admin = request.user.is_superuser
 
-        if group:
+        if moderator:
             return request.method not in ['POST', 'DELETE']
+        elif teacher or admin:
+            return True
 
-        return True
+        return request.method in ['GET']
 
     def has_object_permission(self, request, view, obj):
-        group = request.user.groups.filter(name='moderator').exists()
+        moderator = request.user.groups.filter(name='moderator').exists()
+        teacher = request.user.groups.filter(name='teacher').exists()
+        admin = request.user.is_superuser
 
-        if group:
+        if moderator:
             return request.method in ['GET', 'PUT', 'PATCH']
+        elif teacher:
+            return request.user == obj.user
+        elif admin:
+            return True
 
-        return request.user == obj.user
+        return request.method in ['GET']
