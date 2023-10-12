@@ -1,7 +1,9 @@
-from PIL import Image
 from django.db import models
 
+from PIL import Image
+
 from school.services import resize_image
+
 from users.models import User
 
 NULLABLE = {'null': True, 'blank': True}
@@ -16,6 +18,7 @@ class Course(models.Model):
     image = models.ImageField(upload_to='cources/', default='courses/default.jpg', verbose_name='Превью', **NULLABLE)
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='course_user',
                              **NULLABLE)
+    price = models.PositiveIntegerField(default=0, verbose_name='Цена')
 
     def __str__(self) -> str:
         return f'{self.title}'
@@ -44,6 +47,7 @@ class Lesson(models.Model):
     video_url = models.TextField(verbose_name='Видео-url')
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='lesson_user',
                              **NULLABLE)
+    price = models.PositiveIntegerField(default=0, verbose_name='Цена')
 
     def __str__(self) -> str:
         return f'{self.title}'
