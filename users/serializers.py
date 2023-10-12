@@ -1,6 +1,7 @@
+from payments.serializers import PaymentHistorySerializer
+
 from rest_framework import serializers
 
-from payments.serializers import PaymentSerializer
 from users.models import User
 
 
@@ -27,7 +28,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     '''
     Сериализатор для профиля пользователя сервиса
     '''
-    payment_history = PaymentSerializer(many=True, source='payment_user')
+    payment_history = PaymentHistorySerializer(many=True, source='payment_user')
 
     class Meta:
         model = User
