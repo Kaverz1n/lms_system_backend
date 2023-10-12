@@ -1,6 +1,7 @@
-from PIL import Image
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+
+from PIL import Image
 
 from school.services import resize_image
 
