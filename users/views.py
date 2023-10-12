@@ -10,7 +10,7 @@ from users.serializers import (
 
 class UserUpdateAPIView(generics.UpdateAPIView):
     '''
-    Generic-класс для обновления пользователя
+    Обновление пользователя
     '''
     serializer_class = UpdateUserSerializer
     queryset = User.objects.all()
@@ -18,7 +18,7 @@ class UserUpdateAPIView(generics.UpdateAPIView):
 
 class UserProfileRetrieveAPIView(generics.RetrieveAPIView):
     '''
-    Generic-класс для просмотра профиля пользователя
+    Просмотр профиля пользователя
     '''
     serializer_class = UserProfileSerializer
     queryset = User.objects.all()
