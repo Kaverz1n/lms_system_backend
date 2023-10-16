@@ -4,6 +4,8 @@ from rest_framework import serializers
 
 from school.models import Course, Lesson
 
+from typing import Any
+
 
 class PaymentSerializer(serializers.Serializer):
     '''
@@ -11,7 +13,7 @@ class PaymentSerializer(serializers.Serializer):
     '''
     item_inf = serializers.SerializerMethodField()
 
-    def get_item_inf(self, instance):
+    def get_item_inf(self, instance) -> [Any]:
         information = []
         subject_type = self.context['view'].kwargs.get('subject_type')
         subject_pk = self.context['view'].kwargs.get('subject_pk')
