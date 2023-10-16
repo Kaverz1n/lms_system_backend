@@ -5,7 +5,7 @@ from school.models import Course, Lesson, Subscription
 
 @admin.register(Course)
 class CourseAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title', 'description',)
+    list_display = ('pk', 'title', 'description', 'last_update',)
     search_fields = ('title', 'description',)
     ordering = ('pk',)
 
