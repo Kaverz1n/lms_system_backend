@@ -19,6 +19,7 @@ class Course(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь', related_name='course_user',
                              **NULLABLE)
     price = models.PositiveIntegerField(default=0, verbose_name='Цена')
+    last_update = models.DateTimeField(auto_now_add=False, auto_now=True, verbose_name='Последнее обновление')
 
     def __str__(self) -> str:
         return f'{self.title}'
