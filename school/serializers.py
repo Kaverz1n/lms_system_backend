@@ -24,11 +24,26 @@ class LessonSerializer(serializers.ModelSerializer):
             VideoUrlValidator(field='video_url')
         ]
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> Lesson:
         user = self.context['request'].user
         lesson = Lesson.objects.create(**validated_data, user=user)
 
+        try:
+            course = Course.objects.get(pk=lesson.course.pk)
+            course.save()
+        except AttributeError:
+            pass
+
         return lesson
+
+    def update(self, instance, validated_data) -> Lesson:
+        try:
+            course = Course.objects.get(pk=instance.course.pk)
+            course.save()
+        except AttributeError:
+            pass
+
+        return super().update(instance, validated_data)
 
 
 class CourseSerializer(serializers.ModelSerializer):
@@ -48,12 +63,13 @@ class CourseSerializer(serializers.ModelSerializer):
             'lessons_quantity',
             'lessons',
             'user',
+            'last_update',
         )
 
-    def get_lessons_quantity(self, instance):
+    def get_lessons_quantity(self, instance) -> int:
         return Lesson.objects.filter(course=instance).count()
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> Course:
         lessons = validated_data.pop('lessons', [])
         user = self.context['request'].user
         course = Course.objects.create(**validated_data, user=user)
@@ -63,7 +79,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
         return course
 
-    def update(self, instance, validated_data):
+    def update(self, instance, validated_data) -> Course:
         lessons = validated_data.pop('lessons', [])
 
         for attr, value in validated_data.items():
@@ -88,13 +104,13 @@ class UserCourseSerializer(serializers.ModelSerializer):
     is_subscribed = serializers.SerializerMethodField()
     lessons = LessonSerializer(many=True)
 
-    def get_lessons_quantity(self, instance):
+    def get_lessons_quantity(self, instance) -> int:
         return Lesson.objects.filter(course=instance).count()
 
-    def get_current_user(self, obj):
+    def get_current_user(self, obj) -> int:
         return self.context['request'].user.pk
 
-    def get_is_subscribed(self, obj):
+    def get_is_subscribed(self, obj) -> bool:
         current_user = self.get_current_user(obj)
         return Subscription.objects.filter(user=current_user, course=obj).exists()
 
@@ -125,7 +141,7 @@ class SubscriptionSerializer(serializers.ModelSerializer):
             'course',
         )
 
-    def create(self, validated_data):
+    def create(self, validated_data) -> Subscription:
         user = self.context['request'].user
         course_pk = self.context['view'].kwargs.get('course_pk')
         course = Course.objects.get(pk=course_pk)
