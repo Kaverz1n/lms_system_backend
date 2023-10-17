@@ -125,7 +125,7 @@
 9. **Активация Celery beat**: Необходимо активировать **Celery beat** на вашем сервере для выполнение переодичных задач:
 
    ```commandline
-   celery -A lms_system worker -l INFO -P eventlet
+   celery -A lms_system beat -S django
    ```
 
 ## ЗАПУСК ПРОЕКТА
