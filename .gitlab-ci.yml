@@ -5,7 +5,8 @@ Deploy to stage:
   stage: deploy
   script:
     - cp $ENV_STAGE .env
-  target:
+    - bash deploy.sh
+  only:
     - main
   tags:
     - dev
